@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "java learn"
-categories: Java
+categories: JavaScript
 tags:  java
 ---
 
