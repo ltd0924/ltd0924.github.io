@@ -1,37 +1,59 @@
-## Welcome to GitHub Pages
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
 
-You can use the [editor on GitHub](https://github.com/ltd0924/ltd0924.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+# Site settings
+title: Love&Peace
+brief-intro: code encode
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://ltd0924.github.io" # the base hostname & protocol for your site
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+permalink: /:year/:month/:day/:title/
 
-### Markdown
+# other links
+twitter_username: #gaohaoyang126
+facebook_username: #gaohaoyang.water
+github_username:  ltd0924
+email: ltd0924@sina.com
+weibo_username:
+zhihu_username:
+linkedIn_username:
+dribbble_username:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+description_footer: 来自Aphrodite的个人专栏！
 
-```markdown
-Syntax highlighted code block
+# comments
+# two ways to comment, only choose one, and use your own short name
+# 两种评论插件，选一个就好了，使用自己的 short_name
+duoshuo_shortname: #hygblog
+disqus_shortname: #gaohaoyang
 
-# Header 1
-## Header 2
-### Header 3
+# statistic analysis 统计代码
+# 百度统计 id，将统计代码替换为自己的百度统计id，即
+# hm.src = "//hm.baidu.com/hm.js?xxxxxxxxxxxx";
+# xxxxx字符串
 
-- Bulleted
-- List
+markdown: kramdown
 
-1. Numbered
-2. List
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 
-**Bold** and _Italic_ and `Code` text
+# port
+# port: 1234
 
-[Link](url) and ![Image](src)
-```
+# url
+category_dir: category/
+tag_dir: tag/
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+# excerpt
+excerpt_separator: "\n\n\n\n"
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ltd0924/ltd0924.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+# paginate
+plugins: [jekyll-paginate]
+paginate: 6
+port: 4001
+theme: jekyll-theme-minimal
