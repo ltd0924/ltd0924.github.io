@@ -6,7 +6,7 @@ var geoCoordMap ={
  "节点8":[119.205324,38.912052],
  "节点2":[117.959445,38.977932],
  "节点10":[119.404895,38.247335],
- "节点0":[118.407503,38.476499],
+ "节点0":[118.407503,39.076499],
  "节点9":[117.94866,38.674181],
  "节点7":[118.409271,38.876429],
  "节点4":[119.409385,38.379581],
@@ -15,16 +15,16 @@ var geoCoordMap ={
 
 };
 var Data =[
-  [{name:"节点0"},{name:"节点3",value:90,color:"#082E54"}],
-  [{name:"节点0"},{name:"节点5",value:90,color:"#082E54"}],
-  [{name:"节点0"},{name:"节点8",value:90,color:"#082E54"}],
-  [{name:"节点0"},{name:"节点2",value:90,color:"#082E54"}],
-  [{name:"节点0"},{name:"节点10",value:90,color:"#082E54"}],
-  [{name:"节点0"},{name:"节点9",value:90,color:"#082E54"}],
-  [{name:"节点0"},{name:"节点7",value:90,color:"#082E54"}],
-  [{name:"节点0"},{name:"节点4",value:90,color:"#082E54"}],
-  [{name:"节点0"},{name:"节点1",value:90,color:"#082E54"}],
-  [{name:"节点0"},{name:"节点6",value:90,color:"#082E54"}]
+  [{name:"节点0"},{name:"节点3",value:60,color:"#4F94CD"}],
+  [{name:"节点0"},{name:"节点5",value:80,color:"#4F94CD"}],
+  [{name:"节点0"},{name:"节点8",value:90,color:"#4F94CD"}],
+  [{name:"节点0"},{name:"节点2",value:30,color:"#4F94CD"}],
+  [{name:"节点0"},{name:"节点10",value:50,color:"#4F94CD"}],
+  [{name:"节点0"},{name:"节点9",value:40,color:"#4F94CD"}],
+  [{name:"节点0"},{name:"节点7",value:30,color:"#4F94CD"}],
+  [{name:"节点0"},{name:"节点4",value:80,color:"#4F94CD"}],
+  [{name:"节点0"},{name:"节点1",value:60,color:"#4F94CD"}],
+  [{name:"节点0"},{name:"节点6",value:70,color:"#4F94CD"}]
 
 ]
 var convertData = function (data) {
@@ -58,15 +58,15 @@ var series = [];
             // 动线样式
             effect: {
                 show: true,
-                period:7,
-                trailLength:0.8,
+                period:5,
+                trailLength:1.2,
                 color:'#082E54',
                 symbolSize:2,
             },
             // 实线样式
             lineStyle: {
                 normal: {
-                    color:'#082E54',
+                    color:'#4F94CD',
                     width: 1,
                     curveness:0.2
                 }
@@ -80,13 +80,13 @@ var series = [];
             zlevel: 2,
             effect: {
                 show: true,
-                period: 6,
+                period: 5,
                 trailLength: 0,
 
             },
             lineStyle: {
                 normal: {
-                    color:'#082E54',
+                    color:'#4F94CD',
                     width:1,
                     opacity: 0.4,
                     curveness: 0.2
