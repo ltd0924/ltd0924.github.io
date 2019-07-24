@@ -8,16 +8,27 @@
 <body>
   <div class="Weather_box">
     <div class="Weather_now">
-
       <div>
         <img src="" alt="">
         <span class="Weather_state"> </span>
-        <span class="Weather_state"></span>
-        <span class="Weather_state"></span>
-        <span class="Weather_state"></span>
+        <span class="Weather_state1"></span>
+        <span class="Weather_state2"></span>
+        <span class="Weather_state1"></span>
       </div>
+      <div class="clock">
+      			<div id="hour">
+
+      			</div>
+      			<div id="minute">
+
+      			</div>
+      			<div id="second">
+
+      			</div>
+      		</div>
+
     </div>
-    <div style="margin:10px"><span>24小时天气</span></div>
+    <div><span>24小时天气</span></div>
     <div class="hours_Weather">
       <div>
         <img src="" alt="">
@@ -25,42 +36,22 @@
         <span class="temperature">温度</span>
         <span class="Weather_conditions">多云转晴</span>
       </div>
+
       <div>
         <img src="" alt="">
         <span class="Weather_time">2017-10-27 01:00</span>
         <span class="temperature">温度</span>
         <span class="Weather_conditions">多云转晴</span>
       </div>
+
       <div>
         <img src="" alt="">
         <span class="Weather_time">2017-10-27 01:00</span>
         <span class="temperature">温度</span>
         <span class="Weather_conditions">多云转晴</span>
       </div>
-      <div>
-        <img src="" alt="">
-        <span class="Weather_time">2017-10-27 01:00</span>
-        <span class="temperature">温度</span>
-        <span class="Weather_conditions">多云转晴</span>
-      </div>
-      <div>
-        <img src="" alt="">
-        <span class="Weather_time">2017-10-27 01:00</span>
-        <span class="temperature">温度</span>
-        <span class="Weather_conditions">多云转晴</span>
-      </div>
-      <div>
-        <img src="" alt="">
-        <span class="Weather_time">2017-10-27 01:00</span>
-        <span class="temperature">温度</span>
-        <span class="Weather_conditions">多云转晴</span>
-      </div>
-      <div>
-        <img src="" alt="">
-        <span class="Weather_time">2017-10-27 01:00</span>
-        <span class="temperature">温度</span>
-        <span class="Weather_conditions">多云转晴</span>
-      </div>
+
+
       <div>
         <img src="" alt="">
         <span class="Weather_time">2017-10-27 01:00</span>
@@ -96,6 +87,38 @@
   <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=A63e90def3d0f5488ab9032056429a0d"></script>
   <script type="text/javascript" src="https://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
   <script type="text/javascript" src="weather_query.js"></script>
+  <script type="text/javascript">
+	var hour = document.getElementById("hour");
+	var minute = document.getElementById("minute");
+	var second =document.getElementById("second");
 
+	var m =0,h=0,s=0,ms=0;
+
+
+
+	setInterval(function(){
+
+		var data = new Date();
+
+	var ms = data.getMilliseconds();
+	var s = data.getSeconds() + ms/1000;
+	var m = data.getMinutes() + s /60;
+	var h = data.getHours() + m/60;
+	console.log(s);
+	second.style.transform = "rotate("+6*s+"deg)";
+	hour.style.transform = "rotate("+30*h+"deg)";
+	minute.style.transform = "rotate("+6*m+"deg)";
+
+	},1000);
+
+
+</script>
+  <style type="text/css">
+  .clock{width:200px;height: 170px;background:url(img/clock.jpg) no-repeat center center;position: relative;background-size: 80%;}
+  .clock div{width: 200px;height: 170px;position: absolute;left: 0;top: 0;}
+  #hour{background: url(img/hour.png) no-repeat center center;}
+  #minute{background: url(img/minute.png) no-repeat center center;}
+  #second{background: url(img/second.png) no-repeat center center;}
+</style>
 </body>
 </html>

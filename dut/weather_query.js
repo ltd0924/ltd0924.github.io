@@ -57,18 +57,18 @@ get(url3,Future_Weather)
 
 function Weather_now(data) {
  Weather_now_Node.querySelector("img").src = `./weather_icon/${data.now["cond_code"]}.png`
- Weather_now_Node.querySelector("div span:nth-of-type(1)").innerHTML = data.basic.location 
- Weather_now_Node.querySelector("div span:nth-of-type(2)").innerHTML = "天气：" + data.now.cond_txt
- Weather_now_Node.querySelector("div span:nth-of-type(3)").innerHTML = "温度：" + data.now.tmp + "℃"
+  Weather_now_Node.querySelector("div span:nth-of-type(1)").innerHTML = data.now.cond_txt
+ Weather_now_Node.querySelector("div span:nth-of-type(3)").innerHTML = data.basic.location
+ Weather_now_Node.querySelector("div span:nth-of-type(2)").innerHTML = data.now.tmp + "℃"
 }
 
 function hours_Weather(data) {
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i <4; i++) {
     let node = hours_Weather_Node.querySelector(`div:nth-of-type(${i + 1})`)
-    node.querySelector("img").src = `./weather_icon/${data.hourly[i]["cond_code"]}.png`
-    node.querySelector("div span:nth-of-type(1)").innerHTML = data.hourly[i].time
-    node.querySelector("div span:nth-of-type(2)").innerHTML = "天气：" + data.hourly[i].cond_txt
-    node.querySelector("div span:nth-of-type(3)").innerHTML = "温度：" + data.hourly[i].tmp + "℃"
+    node.querySelector("img").src = `./weather_icon/${data.hourly[i*2]["cond_code"]}.png`
+    node.querySelector("div span:nth-of-type(1)").innerHTML = data.hourly[i*2].time
+    node.querySelector("div span:nth-of-type(2)").innerHTML = "天气：" + data.hourly[i*2].cond_txt
+    node.querySelector("div span:nth-of-type(3)").innerHTML = "温度：" + data.hourly[i*2].tmp + "℃"
   }
 }
 

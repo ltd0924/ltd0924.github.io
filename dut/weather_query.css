@@ -9,31 +9,51 @@ html, body {
 
 
 .Weather_box {
-  width: 500px;
-  height: 650px;
+  width: 400px;
+  height: 450px;
 }
   .Weather_box div {
     text-align: center; }
   .Weather_box .Weather_now {
-    height: 150px;
+    height: 170px;
     width: 100%; }
     .Weather_box .Weather_now > div {
-      margin-top: 10px; }
+      width: 50%;
+      height:170px;
+      float: left;
+  }
       .Weather_box .Weather_now > div .Weather_state {
         display: block;
-        text-align: left; }
+        text-align: left;
+        font-size: 25px;
+            margin-top:20%;
+              margin-bottom:10%;
+      }
+      .Weather_state1 {
+        display: block;
+        text-align: left;
+        font-size: 20px;
+      }
+      .Weather_state2 {
+        display: block;
+        margin-top: 3%;
+        text-align:left;
+        font-size: 20px;
+      }
     .Weather_box .Weather_now img {
-      width: 130px;
-      height: 130px;
+      width: 120px;
+      height: 120px;
       float: left;
-      margin-right: 20px; }
+      margin-left: 8%;
+          margin-top:10%;
+    }
   .Weather_box .hours_Weather {
-    height: 300px;
+    height: 150px;
     width: 100%;
-    margin-top: -20px;
+    margin-top: -10px;
     margin-bottom: 20px; }
     .Weather_box .hours_Weather div {
-      height: 150px;
+      height: 100px;
       width: calc(100% / 4);
       float: left;
       padding: 10px;
@@ -53,7 +73,7 @@ html, body {
     display: flex;
     justify-content: space-around; }
     .Weather_box .Future_Weather div {
-      height: 150px;
+      height: 130px;
       width: calc(100% / 4);
       float: left;
       padding: 10px;
