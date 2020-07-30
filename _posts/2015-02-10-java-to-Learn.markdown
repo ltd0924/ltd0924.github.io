@@ -9,6 +9,7 @@ mathjax: true
 ---
 
 
+为什么无法访问呢 
 接口interface不可以实例化
 abstract 可以有方法
 抽象方法 不可以实例化
