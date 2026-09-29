@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
+  <title>Codex Remote Control</title>
+  <style>
+    :root{color-scheme:light dark}body{font:16px system-ui,-apple-system,sans-serif;max-width:760px;margin:2rem auto;padding:0 1rem;background:#f6f7f9;color:#18202a}main{background:#fff;padding:1.2rem;border-radius:14px;box-shadow:0 2px 12px #0001}label{display:block;margin:.65rem 0 .2rem}input,select,textarea,button{font:inherit;width:100%;box-sizing:border-box;margin:.35rem 0;padding:.65rem;border:1px solid #ccd1d8;border-radius:7px}button{background:#1459c7;color:#fff;border:0;cursor:pointer}button.secondary{background:#555}.row{display:flex;gap:.5rem;align-items:center}.row>*{flex:1}pre{white-space:pre-wrap;overflow:auto;background:#101418;color:#d8e1ed;padding:.8rem;border-radius:7px;min-height:8rem}.hint{color:#5e6875;font-size:.9rem}
+  </style>
+</head>
+<body><main>
+  <h2>Codex Remote Control</h2>
+  <p class="hint">GitHub Pages 只提供前端；后端必须是你的 HTTPS Tunnel 地址。</p>
+  <label>后端 API 地址<input id="backend" type="url" placeholder="https://codex.example.com"></label>
+  <label>访问令牌<input id="token" type="password" autocomplete="off"></label>
+  <button id="connect">连接</button>
+  <section id="panel" hidden>
+    <label>目标主机<select id="target"></select></label>
+    <div class="row"><select id="session"></select><input id="new-session" maxlength="64" placeholder="新会话名称"><button id="create-session">创建会话</button></div>
+    <label>发送到当前 Codex 会话<textarea id="message" rows="4" maxlength="8192" placeholder="输入要发送的文本"></textarea></label>
+    <button id="send">发送消息</button><button id="refresh-output" class="secondary">刷新会话输出</button>
+    <h3>白名单命令</h3><div id="commands"></div><pre id="output"></pre>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id), token=$('token'), output=$('output');
+let targets={};
+const savedBackend=localStorage.getItem('codex_backend')||''; $('backend').value=savedBackend;
+async function api(path,options={}){const base=$('backend').value.trim().replace(/\/$/,'');if(!base)throw Error('请先填写后端 API 地址');localStorage.setItem('codex_backend',base);options.headers={...(options.headers||{}),Authorization:'Bearer '+token.value,'Content-Type':'application/json'};const r=await fetch(base+path,options);const d=await r.json().catch(()=>({error:r.statusText}));if(!r.ok)throw Error(d.error||r.statusText);return d}
+function showError(e){output.textContent='错误: '+e.message}
+function addOption(select,value,label){const o=document.createElement('option');o.value=value;o.textContent=label;select.append(o)}
+async function loadSessions(){const d=await api('/api/sessions?target_id='+encodeURIComponent($('target').value));$('session').replaceChildren();for(const s of d.sessions)addOption($('session'),s,s);if(!d.sessions.length)output.textContent='当前没有 tmux 会话，请创建一个'}
+async function loadOutput(){const session=$('session').value;if(!session)return;try{const d=await api('/api/session/output?target_id='+encodeURIComponent($('target').value)+'&session_name='+encodeURIComponent(session));output.textContent=d.output||'(当前会话暂无输出)'}catch(e){showError(e)}}
+async function connect(){try{const d=await api('/api/targets');targets=d.targets;$('target').replaceChildren();for(const [id,t] of Object.entries(targets))addOption($('target'),id,t.label||id);$('panel').hidden=false;await loadSessions();renderCommands();await loadOutput()}catch(e){showError(e)}}
+function renderCommands(){const t=targets[$('target').value];$('commands').replaceChildren();for(const [id,c] of Object.entries(t.commands||{})){const b=document.createElement('button');b.className='secondary';b.textContent=c.label||id;b.onclick=()=>runCommand(id);$('commands').append(b)}}
+async function createSession(){try{const name=$('new-session').value.trim();if(!name)return;const d=await api('/api/session',{method:'POST',body:JSON.stringify({target_id:$('target').value,session_name:name})});$('new-session').value='';await loadSessions();$('session').value=d.session_name;await loadOutput()}catch(e){showError(e)}}
+async function runCommand(id){try{output.textContent='执行中...';const d=await api('/api/command',{method:'POST',body:JSON.stringify({target_id:$('target').value,command_id:id})});output.textContent=d.stdout+(d.stderr?'\n[stderr]\n'+d.stderr:'')}catch(e){showError(e)}}
+$('connect').onclick=connect;$('target').onchange=async()=>{try{await loadSessions();renderCommands();await loadOutput()}catch(e){showError(e)}};$('session').onchange=loadOutput;$('create-session').onclick=createSession;$('refresh-output').onclick=loadOutput;$('send').onclick=async()=>{try{const text=$('message').value,session_name=$('session').value;if(!session_name)throw Error('请先选择或创建会话');if(!text.trim())return;await api('/api/message',{method:'POST',body:JSON.stringify({target_id:$('target').value,session_name,text})});$('message').value='';output.textContent='消息已发送，请稍后刷新输出'}catch(e){showError(e)}};
+</script></body></html>
