@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src https:">
   <title>Codex Remote Control</title>
   <style>
     :root{color-scheme:light dark}body{font:16px system-ui,-apple-system,sans-serif;max-width:760px;margin:2rem auto;padding:0 1rem;background:#f6f7f9;color:#18202a}main{background:#fff;padding:1.2rem;border-radius:14px;box-shadow:0 2px 12px #0001}label{display:block;margin:.65rem 0 .2rem}input,select,textarea,button{font:inherit;width:100%;box-sizing:border-box;margin:.35rem 0;padding:.65rem;border:1px solid #ccd1d8;border-radius:7px}button{background:#1459c7;color:#fff;border:0;cursor:pointer}button.secondary{background:#555}.row{display:flex;gap:.5rem;align-items:center}.row>*{flex:1}pre{white-space:pre-wrap;overflow:auto;background:#101418;color:#d8e1ed;padding:.8rem;border-radius:7px;min-height:8rem}.hint{color:#5e6875;font-size:.9rem}
@@ -26,7 +26,7 @@
 <script>
 const $=id=>document.getElementById(id), token=$('token'), output=$('output');
 let targets={};
-const savedBackend=localStorage.getItem('codex_backend')||''; $('backend').value=savedBackend;
+const savedBackend=localStorage.getItem('codex_backend')||'https://recruiting-operation-climbing-stud.trycloudflare.com'; $('backend').value=savedBackend;
 async function api(path,options={}){const base=$('backend').value.trim().replace(/\/$/,'');if(!base)throw Error('请先填写后端 API 地址');localStorage.setItem('codex_backend',base);options.headers={...(options.headers||{}),Authorization:'Bearer '+token.value,'Content-Type':'application/json'};const r=await fetch(base+path,options);const d=await r.json().catch(()=>({error:r.statusText}));if(!r.ok)throw Error(d.error||r.statusText);return d}
 function showError(e){output.textContent='错误: '+e.message}
 function addOption(select,value,label){const o=document.createElement('option');o.value=value;o.textContent=label;select.append(o)}
